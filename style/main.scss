@@ -361,7 +361,7 @@ hr {
 
       $special-background: nth($nth-color, 1);
       $bright-color: nth($nth-color, 2);
-
+	    
       @if $special-background {
         $mixed-background: mix($special-background, $mixed-background, 55%);
       }
@@ -372,6 +372,9 @@ hr {
 
       // Set background
       background: $mixed-background;
+			background-image: url("../assets/" + $power + ".png");
+			background-repeat: no-repeat;
+			background-position: center;
 
       // Add glow
       $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
