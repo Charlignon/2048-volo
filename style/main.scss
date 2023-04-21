@@ -9,15 +9,15 @@ $tile-border-radius: 3px;
 
 $mobile-threshold: $field-width + 20px;
 
-$text-color: #776E65;
-$bright-text-color: #f9f6f2;
+$text-color: #e9e4e7;
+$bright-text-color: #1d3b60;
 
 $tile-color: #eee4da;
 $tile-gold-color: #edc22e;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
 
 $game-container-margin-top: 40px;
-$game-container-background: #bbada0;
+$game-container-background: #477ba2;
 
 $transition-speed: 100ms;
 
@@ -25,14 +25,16 @@ html, body {
   margin: 0;
   padding: 0;
 
-  background: #faf8ef;
+  background: radial-gradient(ellipse at center, #477ba2 0, #274b70 100%);
   color: $text-color;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
 }
 
 body {
-  margin: 80px 0;
+  margin: 0;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .heading {
@@ -121,7 +123,7 @@ p {
 }
 
 a {
-  color: $text-color;
+  color: $bright-text-color;
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer;
@@ -158,11 +160,11 @@ hr {
 // Styles for buttons
 @mixin button {
   display: inline-block;
-  background: darken($game-container-background, 20%);
+  background: #1d3b60;
   border-radius: 3px;
   padding: 0 20px;
   text-decoration: none;
-  color: $bright-text-color;
+  color: $text-color;
   height: 40px;
   line-height: 42px;
 }
@@ -292,7 +294,6 @@ hr {
     &, .tile-inner {
       width: ceil($tile-size);
       height: ceil($tile-size);
-      line-height: ceil($tile-size);
     }
 
     // Build position classes
@@ -318,11 +319,14 @@ hr {
     border-radius: $tile-border-radius;
 
     background: $tile-color;
-    text-align: center;
     font-weight: bold;
     z-index: 10;
+    color: #1d3b60;
+    text-align: right;
+    text-shadow: 2px 0 #f2efef, -2px 0 #f2efef, 0 2px #f2efef, 0 -2px #f2efef, 1px 1px #f2efef, -1px -1px #f2efef, 1px -1px #f2efef, -1px 1px #f2efef;
 
-    font-size: 55px;
+    font-size: 35px;
+    line-height: 1;
   }
 
   // Movement transition
@@ -336,17 +340,17 @@ hr {
   $limit: 11;
 
   // Colors for all 11 states, false = no special color
-  $special-colors: false false, // 2
-                   false false, // 4
-                   #f78e48 true, // 8
-                   #fc5e2e true, // 16
-                   #ff3333 true, // 32
-                   #ff0000 true, // 64
-                   false true, // 128
-                   false true, // 256
-                   false true, // 512
-                   false true, // 1024
-                   false true; // 2048
+  $special-colors: #f2efef true, // 2
+                   #edd9a4 true, // 4
+                   #e8bb53 true, // 8
+                   #ce9e45 true, // 16
+                   #b2863d false, // 32
+                   #477ba2 false, // 64
+                   #274b70 false, // 128
+                   #5a4a7b false, // 256
+                   #2c0a24 false, // 512
+                   #870f12 false, // 1024
+                   #fff false  ; // 2048
 
   // Build tile colors
   @while $exponent <= $limit {
@@ -354,50 +358,34 @@ hr {
 
     &.tile-#{$power} .tile-inner {
       // Calculate base background color
-      $gold-percent: ($exponent - 1) / ($limit - 1) * 100;
+      $gold-percent: ($exponent - 1) / ($limit - 1) * 0.1;
       $mixed-background: mix($tile-gold-color, $tile-color, $gold-percent);
 
       $nth-color: nth($special-colors, $exponent);
 
       $special-background: nth($nth-color, 1);
-      $bright-color: nth($nth-color, 2);
 	    
       @if $special-background {
-        $mixed-background: mix($special-background, $mixed-background, 55%);
-      }
-
-      @if $bright-color {
-        color: $bright-text-color;
+        $mixed-background: mix($special-background, $mixed-background, 90%);
       }
 
       // Set background
       background: $mixed-background;
-			background-image: url("../assets/" + $power + ".png");
-			background-repeat: no-repeat;
-			background-position: center;
+	    background-image: url("../assets/" + $power + ".png");
+	    background-repeat: no-repeat;
+	    background-position: center;
 
       // Add glow
       $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
-
-      @if not $special-background {
+		
+			box-shadow: 0 0 10px 5px rgba($special-background, $glow-opacity / 1.8),
+                    inset 0 0 0 1px rgba(white, $glow-opacity / 3);
+      @if not $special-background or $power == 2048 {
         box-shadow: 0 0 30px 10px rgba($tile-gold-glow-color, $glow-opacity / 1.8),
                     inset 0 0 0 1px rgba(white, $glow-opacity / 3);
       }
-
-      // Adjust font size for bigger numbers
-      @if $power >= 100 and $power < 1000 {
-        font-size: 45px;
-
-        // Media queries placed here to avoid carrying over the rest of the logic
-        @include smaller($mobile-threshold) {
-          font-size: 25px;
-        }
-      } @else if $power >= 1000 {
-        font-size: 35px;
-
-        @include smaller($mobile-threshold) {
-          font-size: 15px;
-        }
+      @if $power == 1024 {
+      	transform: rotate(90deg);
       }
     }
 
@@ -406,9 +394,11 @@ hr {
 
   // Super tiles (above 2048)
   &.tile-super .tile-inner {
-    color: $bright-text-color;
-    background: mix(#333, $tile-gold-color, 95%);
-
+    background: #3ea12e;
+    background-image: url("../assets/super.png");
+    background-repeat: no-repeat;
+    background-position: center;
+	    
     font-size: 30px;
 
     @include smaller($mobile-threshold) {
@@ -532,11 +522,6 @@ hr {
   // Render the game field at the right width
   @include game-field;
 
-  // Rest of the font-size adjustments in the tile class
-  .tile .tile-inner {
-    font-size: 35px;
-  }
-
   .game-message {
     p {
       font-size: 30px !important;
@@ -549,4 +534,46 @@ hr {
       margin-top: 30px !important;
     }
   }
+}
+
+details {
+  background: #274b70;
+  box-shadow: 0 .1rem 1rem -.5rem rgba(0,0,0,.4);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+details > center {
+	padding: 10px;
+}
+summary {
+  padding: 1rem;
+  display: block;
+  background: #1d3b60;
+  padding-left: 2.2rem;
+  position: relative;
+  cursor: pointer;
+}
+
+summary:before {
+  content: '';
+  border-width: .4rem;
+  border-style: solid;
+  border-color: transparent transparent transparent #fff;
+  position: absolute;
+  top: 1.3rem;
+  left: 1rem;
+  transform: rotate(0);
+  transform-origin: .2rem 50%;
+  transition: .25s transform ease;
+}
+
+/* THE MAGIC 🧙‍♀️ */
+details[open] > summary:before {
+  transform: rotate(90deg);
+}
+
+
+details summary::-webkit-details-marker {
+  display:none;
 }

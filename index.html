@@ -77,12 +77,12 @@
     </p>
     <hr>
     <p>
-    <strong class="important">Note:</strong> This site is the official version of 2048. You can play it on your phone via <a href="http://git.io/2048">http://git.io/2048.</a> All other apps or sites are derivatives or fakes, and should be used with caution.
+    Created by <a href="https://twitter.com/VoloStan">@Volostan</a>. Based on <a href="http://gabrielecirulli.com" target="_blank">2048 by Gabriele Cirulli</a>, itself based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
     </p>
     <hr>
-    <p>
-    Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
-    </p>
+    <details><summary>See all assets (cheating!!)</summary>
+    <center><img src="assets/2.png"/><img src="assets/4.png"/><img src="assets/8.png"/><img src="assets/16.png"/><img src="assets/32.png"/><img src="assets/64.png"/><img src="assets/128.png"/><img src="assets/256.png"/><img src="assets/512.png"/><img src="assets/1024.png"/><img src="assets/2048.png"/></center>
+    </details>
   </div>
 
   <script src="js/bind_polyfill.js"></script>
@@ -95,5 +95,140 @@
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
+  
+    <script type="text/javascript">
+  const complete = {
+  "grid": {
+    "size": 4,
+    "cells": [
+      [
+        {
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "value": 2
+        },
+        {
+          "position": {
+            "x": 0,
+            "y": 1
+          },
+          "value": 128
+        },
+        {
+          "position": {
+            "x": 0,
+            "y": 2
+          },
+          "value": 256
+        },
+        {
+          "position": {
+            "x": 0,
+            "y": 3
+          },
+          "value": 2**15
+        }
+      ],
+      [
+        {
+          "position": {
+            "x": 1,
+            "y": 0
+          },
+          "value": 2
+        },
+        {
+          "position": {
+            "x": 1,
+            "y": 1
+          },
+          "value": 64
+        },
+        {
+          "position": {
+            "x": 1,
+            "y": 2
+          },
+          "value": 512
+        },
+        {
+          "position": {
+            "x": 1,
+            "y": 3
+          },
+          "value": 16384
+        }
+      ],
+      [
+        {
+          "position": {
+            "x": 2,
+            "y": 0
+          },
+          "value": 4
+        },
+        {
+          "position": {
+            "x": 2,
+            "y": 1
+          },
+          "value": 32
+        },
+        {
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "value": 1024
+        },
+        {
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "value": 8192
+        }
+      ],
+      [
+        {
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "value": 8
+        },
+        {
+          "position": {
+            "x": 3,
+            "y": 1
+          },
+          "value": 16
+        },
+        {
+          "position": {
+            "x": 3,
+            "y": 2
+          },
+          "value": 2048
+        },
+        {
+          "position": {
+            "x": 3,
+            "y": 3
+          },
+          "value": 4096
+        }
+      ]
+    ]
+  },
+  "score": 493,
+  "over": false,
+  "won": true,
+  "keepPlaying": true
+};
+const setComplete = () => localStorage.setItem("gameState", JSON.stringify(complete));
+  </script>
 </body>
 </html>
