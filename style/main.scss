@@ -489,7 +489,7 @@ hr {
   }
 
   .container {
-    width: $field-width;
+    width: 90%;
     margin: 0 auto;
   }
 
@@ -520,7 +520,14 @@ hr {
   }
 
   // Render the game field at the right width
-  @include game-field;
+  @include game-field; // Doesn't work
+  
+  .game-container {
+  	transform: scale(0.82);
+		transform-origin: top left;
+		margin-bottom: -124px;
+  }
+  
 
   .game-message {
     p {

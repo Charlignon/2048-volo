@@ -548,7 +548,7 @@ hr {
     margin-top: 15px; }
 
   .container {
-    width: 280px;
+    width: 90%;
     margin: 0 auto; }
 
   .score-container, .best-container {
@@ -746,6 +746,11 @@ hr {
     -moz-transform: translate(363px, 363px);
     -ms-transform: translate(363px, 363px);
     transform: translate(363px, 363px); }
+
+  .game-container {
+    transform: scale(0.82);
+    transform-origin: top left;
+    margin-bottom: -124px; }
 
   .game-message p {
     font-size: 30px !important;
